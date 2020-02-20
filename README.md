@@ -1,4 +1,4 @@
-# Apuntes Sublenguajes SQL rtewr
+# Apuntes Sublenguajes SQL
 
 Repositorio con Apuntes de los Sublenguajes SQL
 
