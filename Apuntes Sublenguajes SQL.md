@@ -1,5 +1,5 @@
 
-# Apuntes SQL - DQL
+# Apuntes Sublenguajes SQL - DQL
 
  - [Introducción a SQL](#introducción-a-sql)
  
