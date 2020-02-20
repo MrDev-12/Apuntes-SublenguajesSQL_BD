@@ -1,5 +1,5 @@
-# Apuntes SQL - DQL
+# Apuntes Sublenguajes SQL
 
-Repositorio con Apuntes de SQL DQL
+Repositorio con Apuntes de los Sublenguajes SQL
 
- - [Apuntes SQL](https://github.com/MrDev-12/Apuntes-SQL_Bases-de-Datos/blob/master/Apuntes%20SQL%20-%20DQL.md)
+ - [Apuntes Sublenguajes SQL](https://github.com/MrDev-12/Apuntes-SublenguajesSQL_BD/blob/master/Apuntes%20Sublenguajes%20SQL.md)
