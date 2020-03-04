@@ -159,7 +159,6 @@ DML:
 	DELETE FROM nombre_tabla [WHERE <predicado>]
 
 
-
 -- Tipos de Datos:
 
 	Numericos: integer, decimal (preciso), real (no preciso)
