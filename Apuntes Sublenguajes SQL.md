@@ -1,68 +1,117 @@
 
-# Apuntes Sublenguajes SQL - DQL
+# Apuntes Sublenguajes SQL
 
- - [Introducción a SQL](#introducción-a-sql)
+ - [Tipos de Sublenguajes](#Tipos-de-Sublenguajes)
  
- - [Conceptos Importantes](#conceptos-importantes)
- 
- - [Utilidades Varias](#utilidades-varias) 
- 
- - [Ejemplos Consultas Complejas](#ejemplos-consultas-complejas)
+   - [DDL - Data Definition Language](#DDL---Data-Definition-Language)
+
+      - [Crear Bases de Datos](#algo)
+
+      - [Crear Tablas](#algo)
+
+        - [Declaración de Atributos](#algo)
+
+        - [Restricciones:](#algo)
+  
+          - [Clave Primaria](#algo)
+          - [Clave Foránea](#algo)
+          - [UNIQUE](#algo)
+          - [DEFAULT](#algo)
+          - [CHECK](#algo)
+          - [ASSERTION](#algo)
+
+      - [Modificar Tablas](#algo)
+
+      - [Eliminar Tablas / Bases de Datos](#algo)  
+
+   - [DML - Data Manipulation Language](#utilidades-varias)
+
+      - [Insertar Datos](#algo)
+
+      - [Actualizar Datos](#algo)
+
+      - [Eliminar Datos](#algo)
+
+ - [Ejemplos de Ejercicios Modelo](#ejemplos-consultas-complejas)
+
+ - [Referencias Externas:](#introducción-a-sql)
+
+   - [Documentación PostgreSQL](#introducción-a-sql)
+
+   - [Explicación y Ejemplos - W3Schools](#introducción-a-sql)
 
 ***
 ***
 
-Solo hay 1 lenguaje SQL. Sin embargo, hay 6 sublenguajes.
 
-## Sublenguajes:
+## Tipos de Sublenguajes
 
-### DQL (Data Query Language):  
+Solo existe **1 lenguaje SQL**, sin embargo, este lenguajes cuenta con **6 sublenguajes**.
+
+
+### **DQL (Data Query Language)**:  
       
-Opera sobre los datos de la BD, no sobre los objetos
+Opera sobre los datos de la Base de Datos y sirve para obtener los datos deseados.
 
-> Comandos:
+- **Comandos**:
 		
-	SELECT (Antes estaba en el DML)
+  - ***SELECT*** (Antes estaba en el DML)
 
-### DML (Data Manipulation Language):
+### **DDL (Data Definition Language)**:
 
-Opera sobre los datos de la BD, no sobre los objetos
+Opera sobre los objetos de la Base de Datos, como tablas, filas, columnas, etc.
 
-> Comandos:
-
-	INSERT
-	UPDATE
-	DELETE
-
-### DDL (Data Definition Language):
-
-Opera sobre los objetos de la BD, como tablas, filas, columnas, etc.
-
-> Comandos:
+- **Comandos**:
 		
-	CREATE
-	ALTER
-	DROP
+  - ***CREATE***
+  - ***ALTER***
+  - ***DROP***
 
-### TCL (Transaction Control Language):
+### **DML (Data Manipulation Language)**:
 
-> Comandos:
+Opera sobre los datos de la Base de Datos, **no** sobre los objetos.
 
-	COMMIT
-	ROLLBACK
+- **Comandos**:
 
-### DCL (Data Control Language):
+  - ***INSERT***
+  - **UPDATE**
+  - **DELETE**
 
-> Comandos:
+### **TCL (Transaction Control Language)**:
+
+Permite administrar diferentes transacciones que ocurren dentro de una Base de Datos.
+
+- **Comandos**:
+
+  - ***COMMIT***
+  - ***ROLLBACK***
+
+### **DCL (Data Control Language)**:
+
+Se encarga de controlar el acceso a los datos contenidos en la Base de Datos.
+
+- **Comandos**:
 		
-	GRANT
-	REVOKE
+  - ***GRANT***
+  - ***REVOKE***
 
-### SCL (Session Control Language):
+### **SCL (Session Control Language)**:
 
-> Comandos:
+Se encarga de controlar dinamicamente las propiedades de una sesión de usuario.
+
+- **Comandos**:
 		
-	ALTER SESSION 
+  - ***ALTER SESSION*** 
+
+
+***
+***
+
+
+## DDL - Data Definition Language
+
+
+
 
 ***
 ***
@@ -167,7 +216,15 @@ DML:
 
 	Tiempo: date, time, timestamp (date + time)
 
-	Otros: ture 1, false 0, money, uuid, json
+	Otros: true 1, false 0, money, uuid, json
+
+
+
+create domain permite crear tipos de datos, como integer o char
+
+son como alias
+
+ej: CREATE DOMAIN Tipo_DNI CHAR(9);
 
 
 ***
