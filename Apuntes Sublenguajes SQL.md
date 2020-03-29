@@ -110,6 +110,98 @@ Se encarga de controlar dinamicamente las propiedades de una sesión de usuario.
 
 ## DDL - Data Definition Language
 
+Opera sobre los objetos de la Base de Datos, permitiéndonos crear tablas, establecer claves, etc.
+
+
+### **Crear Bases de Datos**
+
+Para crear Bases de Datos utilizaremos la siguiente sintaxis:  
+
+```SQL
+CREATE (DATABASE | SCHEMA) [IF NOT EXISTS] <nombreBD> [CHARACTER SET <nombreDelCharset>];
+```
+
+La utilización de ***DATABASE*** o ***SCHEMA*** se diferencia principalmente por los permisos en el momento de crear la Base de Datos.
+
+- **Opciones**:
+
+  - ***IF NOT EXISTS***: comprueba si la Base de Datos a crear existe o no.
+  - **CHARACTER SET**: determina el conjunto de caracteres que se va a utilizar.
+
+
+> **Ejemplos**:
+
+```SQL
+CREATE DATABASE pruebaBD;
+```
+
+```SQL
+CREATE DATABASE IF NOT EXISTS pruebaBD2;
+```
+
+***
+
+
+### **Crear Tablas**
+
+Para crear Tablas utilizaremos la siguiente sintaxis:  
+
+```SQL
+CREATE TABLE <nombreTabla> (
+
+	<atributo1> tipoDato,
+	<atributo2> tipoDato
+
+);
+```
+
+En el momento de la creación de la Tabla, se pueden definir **RESTRICCIONES** en los atributos.  
+
+Dichas restricciones, se explicarán más adelante y veremos como definirlas a la hora de crear la Tabla.
+
+
+> **Ejemplo**:
+
+```SQL
+CREATE TABLE Alumnos (
+
+	nombre VARCHAR(255),
+	telefono CHAR(9)
+
+);
+```
+
+***
+
+### **Declaración de Atributos**
+
+Para crear Tablas utilizaremos la siguiente sintaxis:  
+
+```SQL
+CREATE TABLE <nombreTabla> (
+
+	<atributo1> tipoDato,
+	<atributo2> tipoDato
+
+);
+```
+
+En el momento de la creación de la Tabla, se pueden definir **RESTRICCIONES** en los atributos.  
+
+Dichas restricciones, se explicarán más adelante y veremos como definirlas a la hora de crear la Tabla.
+
+
+> **Ejemplo**:
+
+```SQL
+CREATE TABLE Alumnos (
+
+	nombre VARCHAR(255),
+	telefono CHAR(9)
+
+);
+```
+
 
 
 
