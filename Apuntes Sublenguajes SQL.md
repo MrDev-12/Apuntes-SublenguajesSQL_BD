@@ -406,58 +406,123 @@ CREATE ASSERTION <nombreRestricción>
 
 ### **Modificar Tablas**
 
-Para declarar Atributos utilizaremos la siguiente sintaxis:  
+Muchas estructuras de sintaxis que se utilizaban en el momento de ***Crear una Tabla***, pueden utilizarse en el momento de modificación, como establecer **Restricciones** o los **Tipos de Datos**.
 
-```SQL
-<atributo1> tipoDato [PRIMARY KEY] [UNIQUE] [NOT NULL]
-```
+A la hora de modificar Tablas, podemos realizar diferentes acciones dependiendo lo que queramos realizar:
 
-En el momento de declarar el Atributo, se le pueden aplicar ciertas **RESTRICCIONES**, sin embargo, en mi opinión, es preferible definirlas a parte y asi mantener cierta organización.
+- **Añadir Columnas**:
 
-Es decir, en lugar de definirlos de esta forma:
+	```SQL
+	ALTER TABLE <nombreTabla>
 
-```SQL
-CREATE TABLE Alumnos (
+		ADD [COLUMN] <atributo> tipoDato;
+	```
 
-	nombre VARCHAR(255),
-	DNI CHAR(9) PRIMARY KEY
+- **Modificar Columnas**:
 
-);
-```
+	```SQL
+	ALTER TABLE <nombreTabla>
+
+		ALTER COLUMN <atributo> TYPE nuevoTipoDato;
+	```
+
+- **Eliminar Columnas**:
+
+	```SQL
+	ALTER TABLE <nombreTabla>
+
+		DROP COLUMN <atributo> [CASCADE | RESTRICT];
+	```
+
+	- **Opciones**:
+	
+    	- ***CASCADE***: borra todos los datos, tanto Restriccions como datos referenciados.
+    	- ***RESTRICT***: no permite borrar la columna si tiene dependencias. Es la **opción por defecto**.
+
+- **Añadir Restricciones**:
+
+	La estructura y las distintas variantes de las **Restricciones** son las mismas que las explicadas anteriormente.
+
+	```SQL
+	ALTER TABLE <nombreTabla> 
+
+		ADD [CONSTRAINT <nombreRestricción>] PRIMARY KEY | FOREIGN KEY | CHECK ...;
+	```
+
+- **Eliminar Restricciones**:
+
+	```SQL
+	ALTER TABLE <nombreTabla>
+
+		DROP CONSTRAINT <nombreRestricción>;
+	```
 
 ***
 
 
-###
+### **Eliminar Tablas / Bases de Datos**
+
+Para eliminar Bases de Datos utilizaremos la siguiente sintaxis:
+
+```SQL
+DROP DATABASE | SCHEMA [IF EXISTS] <nombreBD>;
+```
+
+Para eliminar Tablas utilizaremos la siguiente sintaxis:
+
+```SQL
+DROP TABLE [IF EXISTS] <nombreTabla> [CASCADE | RESTRICT];
+```
+
+- **Opciones**:
+	
+    - ***CASCADE***: borra todos los datos en cascada, incluyendo las dependencias.
+    - ***RESTRICT***: no permite borrar la tabla si tiene dependencias. Es la **opción por defecto**.
+
+
+***
+***
+
+
+## DML - Data Manipulation Language
+
+Opera sobre los objetos de la Base de Datos, permitiéndonos crear tablas, establecer claves, etc.
+
+
+### **Crear Bases de Datos**
+
+Para crear Bases de Datos utilizaremos la siguiente sintaxis:  
+
+```SQL
+CREATE (DATABASE | SCHEMA) [IF NOT EXISTS] <nombreBD> [CHARACTER SET <nombreDelCharset>];
+```
+
+La utilización de ***DATABASE*** o ***SCHEMA*** se diferencia principalmente por los permisos en el momento de crear la Base de Datos.
+
+- **Opciones**:
+
+  - ***IF NOT EXISTS***: comprueba si la Base de Datos a crear existe o no.
+  - ***CHARACTER SET***: determina el conjunto de caracteres que se va a utilizar.
+
+
+> **Ejemplos**:
+
+```SQL
+CREATE DATABASE pruebaBD;
+```
+
+```SQL
+CREATE DATABASE IF NOT EXISTS pruebaBD2;
+```
+
+***
 
 ***
 ***
 ***
 
 # ---> PARTE SUCIA - APUNTES <---
-
-DDL:
-
-
-- DROP:
-
-	Bases de Datos: DROP SCHEMA [IF EXISTS] myBD
-
-	Tabla: DROP TABLE [IF EXISTS] nomTabla [CASCADE (borra las tablas hijas) | RESTRICT (no puedes borrar la tabla porque tiene tablas hijas relacionadas con la tabla que se intenta borrar)]
-
-
-- ALTER:
-
-	ALTER TABLE nomTabla
-
-		ADD [COLUMN] <atributo> valor
-
-		DROP COLUMN <atributo> [CASCADE | RESTRICT]
-
-		ADD <restriccion> ---> CONSTRAINT anteriores
-
-		DROP <restriccion>
-       		    
+ 		    
 
 DML:
 
