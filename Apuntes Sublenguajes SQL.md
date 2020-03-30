@@ -112,6 +112,8 @@ Se encarga de controlar dinamicamente las propiedades de una sesión de usuario.
 
 Opera sobre los objetos de la Base de Datos, permitiéndonos crear tablas, establecer claves, etc.
 
+***
+
 
 ### **Crear Bases de Datos**
 
@@ -486,63 +488,86 @@ DROP TABLE [IF EXISTS] <nombreTabla> [CASCADE | RESTRICT];
 
 ## DML - Data Manipulation Language
 
-Opera sobre los objetos de la Base de Datos, permitiéndonos crear tablas, establecer claves, etc.
+Opera sobre los datos de la Base de Datos, **no** sobre los objetos.
 
+***
 
-### **Crear Bases de Datos**
+### **Insertar Datos**
 
-Para crear Bases de Datos utilizaremos la siguiente sintaxis:  
+Para insertar datos en una Tabla utilizaremos la siguiente sintaxis:  
 
 ```SQL
-CREATE (DATABASE | SCHEMA) [IF NOT EXISTS] <nombreBD> [CHARACTER SET <nombreDelCharset>];
+INSERT INTO <nombreTabla> [ (<atributo1>, <atributo2>, ...) ]
+	VALUES (<valor1>, <valor2>, ...) | SELECT ...;
 ```
 
-La utilización de ***DATABASE*** o ***SCHEMA*** se diferencia principalmente por los permisos en el momento de crear la Base de Datos.
-
-- **Opciones**:
-
-  - ***IF NOT EXISTS***: comprueba si la Base de Datos a crear existe o no.
-  - ***CHARACTER SET***: determina el conjunto de caracteres que se va a utilizar.
-
-
-> **Ejemplos**:
+Se pueden introducir **múltiples filas** haciendo uso de un solo comando:
 
 ```SQL
-CREATE DATABASE pruebaBD;
+INSERT INTO <nombreTabla> [ (<atributo1>, <atributo2>, ...) ]
+	VALUES (<valor1a>, <valor2a>), 
+		   (<valor1b>, <valor2b>),
+		   (<valor1c>, <valor2c>);
 ```
+
+Si introducimos valores a partir de un **SELECT**, éste tendrá que tener el mismo número de columnas, el mismo orden a la hora de seleccionarlas y los mismos tipos de datos que la tabla destino.
+
+> **Ejemplo**:
 
 ```SQL
-CREATE DATABASE IF NOT EXISTS pruebaBD2;
+INSERT INTO productos (num_producto, nombre, precio)
+  SELECT num_producto, nombre, precio
+  FROM productos_nuevos
+    WHERE fecha_salida = 'hoy';
 ```
 
 ***
 
+### **Actualizar Datos**
+
+Para actualizar datos en una Tabla utilizaremos la siguiente sintaxis:  
+
+```SQL
+UPDATE <nombreTabla> SET <atributo1> = <valor1>,
+						 <atributo2> = <valor2>,
+						 <atributo3> = <valor3>,
+						 ...
+	[WHERE <predicado>];
+```
+
+Se pueden establecer condiciones con **WHERE**, de manera que, si se cumple dicha condición, se realizará la Actualización de los Datos indicados.
+
+> **Ejemplo**:
+
+```SQL
+UPDATE productos SET precio = '50',
+					 oferta = 'si',
+    WHERE meses_en_stock > '5';
+```
+
 ***
+
+### **Eliminar Datos**
+
+Para eliminar datos en una Tabla utilizaremos la siguiente sintaxis:  
+
+```SQL
+DELETE FROM <nombreTabla> [WHERE <predicado>];
+```
+
+Si no se establecen condiciones con **WHERE**, se borrarían todos los datos de la tabla indicada.
+
+Por este motivo, hay que acordarse de utilizar un WHERE.
+
+Se pueden introducir **múltiples filas** haciendo uso de un solo comando:
+
+> **Ejemplo**:
+
+```SQL
+DELETE FROM productos WHERE caducado = 'si';
+```
+
 ***
-***
-
-# ---> PARTE SUCIA - APUNTES <---
- 		    
-
-DML:
-
-
-- INSERT: 
-
-	INSERT INTO nombre_tabla [(atributo1, atributo2, ...)] VALUES (valor1, valor2, ...) | SELECT ... {tiene que tener: el mismo numero de columnas y mismo orden a la hora de seleccionarlas; mismo dominios (tipos de datos: integer, etc.); }
-
-
-
-- UPDATE:
-
-	UPDATE nombre_tabla SET atributo1 = valor1, atributo2 = valor2, ... [WHERE <predicado>]
-
-
-
-- DELETE:
-
-	DELETE FROM nombre_tabla [WHERE <predicado>]
-
 
 
 
