@@ -126,7 +126,7 @@ La utilización de ***DATABASE*** o ***SCHEMA*** se diferencia principalmente po
 - **Opciones**:
 
   - ***IF NOT EXISTS***: comprueba si la Base de Datos a crear existe o no.
-  - **CHARACTER SET**: determina el conjunto de caracteres que se va a utilizar.
+  - ***CHARACTER SET***: determina el conjunto de caracteres que se va a utilizar.
 
 
 > **Ejemplos**:
@@ -173,36 +173,117 @@ CREATE TABLE Alumnos (
 
 ***
 
+
 ### **Declaración de Atributos**
 
-Para crear Tablas utilizaremos la siguiente sintaxis:  
+Para declarar Atributos utilizaremos la siguiente sintaxis:  
 
 ```SQL
-CREATE TABLE <nombreTabla> (
-
-	<atributo1> tipoDato,
-	<atributo2> tipoDato
-
-);
+<atributo1> tipoDato [PRIMARY KEY] [UNIQUE] [NOT NULL]
 ```
 
-En el momento de la creación de la Tabla, se pueden definir **RESTRICCIONES** en los atributos.  
+En el momento de declarar el Atributo, se le pueden aplicar ciertas **RESTRICCIONES**, sin embargo, en mi opinión, es preferible definirlas a parte y asi mantener cierta organización.
 
-Dichas restricciones, se explicarán más adelante y veremos como definirlas a la hora de crear la Tabla.
-
-
-> **Ejemplo**:
+Es decir, en lugar de definirlos de esta forma:
 
 ```SQL
 CREATE TABLE Alumnos (
 
 	nombre VARCHAR(255),
-	telefono CHAR(9)
+	DNI CHAR(9) PRIMARY KEY
 
 );
 ```
 
+Mejor definirlos de esta otra forma:
 
+```SQL
+CREATE TABLE Alumnos (
+
+	nombre VARCHAR(255),
+	DNI CHAR(9),
+	CONSTRAINT PK_Alumnos
+		PRIMARY KEY (DNI)
+
+);
+```
+
+Esta última estructura se explicará más adelante, cuando se vean las **RESTRICCIONES**.  
+
+
+### **Tipos de Datos**
+
+A la hora de declarar un Atributo, tenemos que indicar el tipo de dato que va a almacenar.  
+
+Existen gran cantidad de tipos de datos, pero los **más usados** son los siguientes:
+
+- **Numéricos**:
+  
+  - ***INTEGER***
+  - ***DECIMAL*** (preciso)
+  - ***REAL*** (no preciso)
+
+- **Texto**:
+  
+  - ***CHAR*** (longitud fija limitada)
+  - ***VARCHAR*** (longitud variable limitada)
+  - ***TEXT*** (longitud variable ilimitada)
+
+- **Tiempo**:
+  
+  - ***DATE***
+  - ***TIME***
+  - ***TIMESTAMP*** (DATE + TIME)
+
+- **Otros**:
+  
+  - ***BOOLEAN*** ( true = 1 / false = 0 )
+  - ***MONEY***
+  - ***UUID*** (identificador único)
+  - ***JSON***
+
+Por otra parte, podemos crear nuestros propios **Dominios de dato** haciendo uso de los tipos de datos anteriores.
+
+De esta manera, indicamos el Dominio de dato creado en lugar de especificar el mismo tipo de dato en diferentes atributos.
+
+> **Ejemplo**:
+
+```SQL
+CREATE DOMAIN Tipo_DNI CHAR(9);
+```
+
+```SQL
+CREATE TABLE Alumnos (
+
+	nombre VARCHAR(255),
+	DNI Tipo_DNI
+
+);
+```
+
+***
+
+
+### **Restricciones**
+
+Para declarar Atributos utilizaremos la siguiente sintaxis:  
+
+```SQL
+<atributo1> tipoDato [PRIMARY KEY] [UNIQUE] [NOT NULL]
+```
+
+En el momento de declarar el Atributo, se le pueden aplicar ciertas **RESTRICCIONES**, sin embargo, en mi opinión, es preferible definirlas a parte y asi mantener cierta organización.
+
+Es decir, en lugar de definirlos de esta forma:
+
+```SQL
+CREATE TABLE Alumnos (
+
+	nombre VARCHAR(255),
+	DNI CHAR(9) PRIMARY KEY
+
+);
+```
 
 
 ***
@@ -300,23 +381,6 @@ DML:
 	DELETE FROM nombre_tabla [WHERE <predicado>]
 
 
--- Tipos de Datos:
-
-	Numericos: integer, decimal (preciso), real (no preciso)
-
-	Texto: char (longitud fija limitada), varchar (longitud variable limitada), text (longitud variable ilimitada)
-
-	Tiempo: date, time, timestamp (date + time)
-
-	Otros: true 1, false 0, money, uuid, json
-
-
-
-create domain permite crear tipos de datos, como integer o char
-
-son como alias
-
-ej: CREATE DOMAIN Tipo_DNI CHAR(9);
 
 
 ***
