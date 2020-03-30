@@ -20,14 +20,14 @@ A partir do esquema relacional proporcionado, implementalo en PostgreSQL.
 
 ## **Solución**
 
-### --> Creacion de Dominios:
+### --> Creación de Dominios:
 
 ```SQL
 CREATE DOMAIN Tipo_Código CHAR(5);
 CREATE DOMAIN Nome_Válido VARCHAR(40);
 ```
 
-### --> Creacion de tablas:
+### --> Creación de tablas:
 
 ```SQL
 CREATE TABLE Servizo (
@@ -139,7 +139,7 @@ CREATE TABLE Raza (
 ### --> Restricciones:
 
 
-- **Claves Foraneas**:
+- **Claves Foráneas**:
 
     ```SQL
     ALTER TABLE Tripulación

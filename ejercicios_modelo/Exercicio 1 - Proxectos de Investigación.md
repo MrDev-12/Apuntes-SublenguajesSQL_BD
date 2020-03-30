@@ -22,8 +22,7 @@ A partir do esquema relacional proporcionado, implementalo en PostgreSQL.
 
 ## **Solución**
 
-
-### --> Creacion de tablas:
+### --> Creación de tablas:
 
 ```SQL
 CREATE TABLE Sede (
@@ -134,7 +133,7 @@ CREATE TABLE Financia (
 ### --> Restricciones:
 
 
-- **Claves Foraneas**:
+- **Claves Foráneas**:
 
     ```SQL
     ALTER TABLE Ubicacion
