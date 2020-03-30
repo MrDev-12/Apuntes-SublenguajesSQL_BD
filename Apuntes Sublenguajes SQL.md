@@ -202,6 +202,7 @@ CREATE TABLE Alumnos (
 
 	nombre VARCHAR(255),
 	DNI CHAR(9),
+
 	CONSTRAINT PK_Alumnos
 		PRIMARY KEY (DNI)
 
@@ -266,6 +267,145 @@ CREATE TABLE Alumnos (
 
 ### **Restricciones**
 
+Las Restricciones se suelen definir **al final** de la creación de la tabla, después de declarar los atributos.
+
+> **Ejemplo**:
+
+```SQL
+CREATE TABLE Alumnos (
+
+	nombre VARCHAR(255),
+	DNI CHAR(9),
+
+	CONSTRAINT PK_Alumnos
+		PRIMARY KEY (DNI)
+
+);
+```
+
+Sin embargo, es **Opcional** indicarle un nombre a la restricción.
+
+> **Ejemplo**:
+
+```SQL
+CREATE TABLE Alumnos (
+
+	nombre VARCHAR(255),
+	DNI CHAR(9),
+
+	PRIMARY KEY (DNI)
+
+);
+```
+
+
+### **Clave Primaria**
+
+Para establecer la Clave Primaria utilizaremos la siguiente sintaxis:
+
+```SQL
+[CONSTRAINT <nombreRestricción>]
+	PRIMARY KEY (<nombreAtributo>)
+```
+
+Si la clave primaria es una clave compuesta, tendremos que indicar los atributos separados por comas, **NUNCA** creando otra restriccion de clave primaria.
+
+```SQL
+[CONSTRAINT <nombreRestricción>]
+	PRIMARY KEY (<nombreAtributo1>, <nombreAtributo2>)
+```
+
+
+### **Clave Foránea**
+
+Para establecer la Clave Foránea utilizaremos la siguiente sintaxis:
+
+```SQL
+[CONSTRAINT <nombreRestricción>]
+	FOREIGN KEY (<nombreAtributo>)
+	REFERENCES <tablaAjena>(<nombreAtributoAjeno>)
+	[ON DELETE CASCADE | NO ACTION | SET NULL | SET DEFAULT]
+	[ON UPDATE CASCADE | NO ACTION | SET NULL | SET DEFAULT]
+	[MATCH FULL | MATCH PARTIAL]
+```
+
+Por defecto, si no especificamos ***ON DELETE*** ni ***ON UPDATE***, toman por defecto el valor ***NO ACTION***.
+
+- **Opciones Principales**:
+
+  - ***ON DELETE***: indica que acción se realizará sobre los datos almacenados en caso de que se **ELIMINE** la ***Clave Principal*** a la que referencia la ***Clave Foránea***.
+  - ***ON UPDATE***: indica que acción se realizará sobre los datos almacenados en caso de que se **MODIFIQUE** la ***Clave Principal*** a la que referencia la ***Clave Foránea***.
+
+  - ***MATCH FULL***: indica que todos los datos, tanto de la tabla con la ***Clave Primaria*** como de la tabla con la ***Clave Foránea*** **NO** pueden estar a **NULL**, teniendo así que coincidir los datos de ambas tablas.
+  - ***MATCH PARTIAL***: permite tener datos de las tablas a **NULL**.
+
+
+- **Opciones ON DELETE / ON UPDATE**:
+
+  - ***CASCADE***: si se borran o modifican los datos de la ***Clave Primaria*** referenciada, se borran o modifican los datos de la ***Clave Foránea***.
+
+  - ***NO ACTION***: no se realiza ninguna acción sobre los datos. Se mantienen los datos.
+
+  - ***SET NULL***: si se borran o modifican los datos de la ***Clave Primaria*** referenciada, se establecen a **NULL** los datos de la ***Clave Foránea***.
+
+  - ***SET DEFAULT***: si se borran o modifican los datos de la ***Clave Primaria*** referenciada, se establecen a un **valor por defecto** los datos de la ***Clave Foránea***.
+
+
+### **UNIQUE**
+
+Permite que todos los valores sean diferenentes, únicos.  
+
+Se suele utilizar para las **Claves Candidatas**.
+
+Para establecer una restricción UNIQUE utilizaremos la siguiente sintaxis:
+
+```SQL
+[CONSTRAINT <nombreRestricción>]
+	UNIQUE (<nombreAtributo>)
+```
+
+
+### **CHECK**
+
+Permite realizar comprobaciones haciendo uso de un **PREDICADO**, de manera que si se cumplen las condiciones descritas, se realiza la acción deseada.
+
+Para establecer una restricción CHECK utilizaremos la siguiente sintaxis:
+
+```SQL
+[CONSTRAINT <nombreRestricción>]
+	CHECK (predicado)
+```
+
+> **Ejemplo**:
+
+```SQL
+CONSTRAINT precioPositivo
+	CHECK (precio > 0)
+```
+
+- **Opciones**:
+
+  - ***NOT DEFERRABLE***: no se permite aplazar la ejecución del CHECK, de manera que se realiza en el momento. Es la **opción por defecto**.
+
+  - ***DEFERRABLE INITIALLY DEFERRABLE***: permite aplazar la ejecución del CHECK, de manera que se realiza al final.
+
+
+### **ASSERTION**
+
+Se crea de maneta independiente a las tablas, permitiendo acceder a los atributos de cualquier tabla.
+
+Para establecer una restricción ASSERTION utilizaremos la siguiente sintaxis:
+
+```SQL
+CREATE ASSERTION <nombreRestricción>
+	CHECK (predicado)
+```
+
+***
+
+
+### **Modificar Tablas**
+
 Para declarar Atributos utilizaremos la siguiente sintaxis:  
 
 ```SQL
@@ -285,6 +425,10 @@ CREATE TABLE Alumnos (
 );
 ```
 
+***
+
+
+###
 
 ***
 ***
@@ -293,52 +437,6 @@ CREATE TABLE Alumnos (
 # ---> PARTE SUCIA - APUNTES <---
 
 DDL:
-
-- CREATE: 
-
-	Bases de Datos (CREATE DATABASE myDB | CREATE SCHEMA myOtherDB)
-       		     Se diferencian por los permisos al momento de crearla
-
-		Ej: CREATE (DATABASE | SCHEMA) [IF NOT EXISTS] <nomBD> [CHARACTER SET <nomeDoCharset>]
-
-	Tablas (CREATE TABLE tabName)
-
-		https://www.postgresql.org/docs/8.4/ddl-constraints.html#DDL-CONSTRAINTS-FK --> DOCUMENTAR PK Y FK
-		
-		Opciones para ON DELETE:
-
-		NO ACTION: no realiza ninguna accion sobre los datos. Se mantienen
-
-		CASCADE: los datos se borran
-
-		SET NULL: se pone a nulo ¿?
-
-		SET DEFAULT: cuando desaparece se asignan los datos a un sitio ficticio pero que existe
-
-	    - MATCH FULL: todos los campos, tanto de la tabla  con la clave principal como de la tabla con la clave foranea no pueden estar a null
-
-	     - MATCH PARCIAL: permite tener uno de los campos de la tabla a null
-
-	Usuarios
-
-
-- Restricciones:
-
-	CONSTRAINT ---> Tipos de restricciones
-
-		- PRIMARY KEY:
-
-		- FOREIGN KEY:
-	
-		- UNIQUE (atributo): permite que todos los valores sean diferentes
-
-		- CHECK predicado (atributo): realizar comprobaciones
-
-			opciones posibles a mayores (not deferrable es el valor predeterminado):
-
-				- NOT DEFERRABLE: comprueba en el momento en el que se intenta hacer la accion
-
-				- DEFERRABLE INITIALLY DEFFERRABLE: comprueba al final
 
 
 - DROP:
